@@ -9,7 +9,9 @@ library(tidyverse)
 #library(pls)
 
 # load data (created in the 01_create_data.R script)
-d_all <- readRDS("LIF/Croissance/ser_trend/data/d_allobj.rds")
+d_all <- readRDS("LIF/Croissance/ser_trend/data/d_all.csv")
+d2 <- read.csv("LIF/Croissance/ser_trend/data/d2.csv")
+
 
 # some fine tuning of the data to ease model fit
 d_all$pvv <- with(d_all, (PV / V) * 100)
@@ -54,25 +56,6 @@ c_loo <- loo(mm, mm2, mm3)
 
 
 # climatic model with first PC axis on difference to 30-year reference
-meteo_ser <- read.csv("LIF/Croissance/ser_trend/data/meteo_ser_ref_pied.csv")
-pcc <- prcomp(meteo_ser[,3:14], scale. = TRUE)
-
-meteo_ser$pc1 <- pcc$x[,1]
-
-meteo_ser %>%
-  rename(year = win) %>%
-  select(ser, year, pc1, dethspring, dethsummer) %>%
-  inner_join(d_all[,c("year", "ser", "grecorand", "V",
-                      "PV", "pvv", "mqd_std")],
-             by = c("ser", "year")) %>%
-  mutate(dethsus = scale(dethsummer),
-         dethsps = scale(dethspring)) -> d2
-
-d2$pc1.1 <- poly(d2$pc1, 2)[,1]
-d2$pc1.2 <- poly(d2$pc1, 2)[,2]
-
-write.csv(d2, "LIF/Croissance/ser_trend/data/d2.csv", row.names = FALSE)
-
 m_d <- brm(pvv ~ mqd_std + pc1.1 + pc1.2 + dethsus + 
              dethsps + pc1.1:dethsus + pc1.1:dethsps +
               (1 | grecorand / ser) +
@@ -112,9 +95,3 @@ m_4 <- brm(pvv ~ mqd_std + dethsps +
              (0 + dethsps | grecorand / ser) + 
              (0 + dethsus | grecorand / ser),
            data = d2)
-
-
-
-############# Code for SI analysis ##########
-
-

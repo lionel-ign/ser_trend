@@ -10,7 +10,7 @@ library(patchwork)
 d_all <- readRDS("LIF/Croissance/ser_trend/data/d_allobj.rds")
 d2 <- read.csv("LIF/Croissance/ser_trend/data/d2.csv")
 
-## load model
+## load model (output from script 02_fitting_script.R)
 mm2 <- readRDS("LIF/Croissance/ser_trend/model/model_mm2.rds")
 m_d <- readRDS("LIF/Croissance/ser_trend/model/model_md.rds")
 m_clim <- readRDS("LIF/Croissance/ser_trend/model/clim_models.rds")

@@ -158,6 +158,27 @@ outt %>%
 write.csv(outt[,c(6, 1, 2:5, 7:18)], "LIF/Croissance/ser_trend/data/meteo_ser_ref_pied.csv", 
           row.names = FALSE)
 
+## create the climatic data
+meteo_ser <- read.csv("LIF/Croissance/ser_trend/data/meteo_ser_ref_pied.csv")
+pcc <- prcomp(meteo_ser[,3:14], scale. = TRUE)
+
+meteo_ser$pc1 <- pcc$x[,1]
+
+meteo_ser %>%
+  rename(year = win) %>%
+  select(ser, year, pc1, dethspring, dethsummer) %>%
+  inner_join(d_all[,c("year", "ser", "grecorand", "V",
+                      "PV", "pvv", "mqd_std")],
+             by = c("ser", "year")) %>%
+  mutate(dethsus = scale(dethsummer),
+         dethsps = scale(dethspring)) -> d2
+
+d2$pc1.1 <- poly(d2$pc1, 2)[,1]
+d2$pc1.2 <- poly(d2$pc1, 2)[,2]
+
+write.csv(d2, "LIF/Croissance/ser_trend/data/d2.csv", row.names = FALSE)
+
+
 
 ## get per ser the tree species making up 80% of the volume
 spe <- ocre_nm(ans = 2005:2022, vent_p = "ser_86", vent_a = "ess",
