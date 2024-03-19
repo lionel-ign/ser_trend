@@ -1,5 +1,7 @@
 # Companion repository to the manuscript: "Turning point in forest productivity"
 
+[![DOI](https://zenodo.org/badge/773863581.svg)](https://zenodo.org/doi/10.5281/zenodo.10836876)
+
 This companion repository allow to reproduce the results shown in the manuscript (under review) and available has a preprint in [add link to arxiv].
 
 ## Structure
