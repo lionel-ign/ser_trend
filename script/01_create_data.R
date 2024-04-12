@@ -1,5 +1,18 @@
-## Script to create the data ued in the anaysis of the temporal
-## trends of productivity at the ser level
+######################################
+##
+## Companion Rscript to the manuscript:
+## Turning point in forest productivity revealed from 40 years
+## of national forest inventory data
+## Author: Lionel Hertzog
+## contact: lionel.hertzog@ign.fr
+## Date: 12/04/2024
+## Aim: this script present the steps to create the datasets used in the analysis
+## Note that the raw forest inventory data are available for internal use only
+## the lines 1-80 are only for documentation purposes.
+## The climatic data are not given in the repository but can be asked from:
+## christian.piedallu@agroparistech.fr
+##
+############################
 
 # load libraries
 library(data.table)
@@ -12,15 +25,15 @@ library(terra)
 # create data with temporal window
 yy <- data.table(year_st = seq(2005, 2020, by = 5),
                  year_fi = seq(2009, 2024, by = 5))
-yy[4,"year_fi"] <- 2021
-yy[3, "year_fi"] <- 2018
-# from 2005 on wards
+yy[4,"year_fi"] <- 2022
+# from 2005 onwards
 vpv_nm <- yy[, ocre_nm(ans = year_st:year_fi, vent_p = c("ser_86"), vars = c("V", "PV", "GTOT", "NT"), moy_ha = TRUE),
              by = .(year_st, year_fi)]
 # from 1978 to 2004
 vpv_am <- dep_cyc_anref[base == "dendro",
                         ocre_am(dep = dep, cyc = cyc, vent_p = "ser_86", 
-                                vars = c("V", "PV", "GTOT", "NT")),
+                                vars = c("V", "PV", "GTOT", "NT"),
+                                moy_ha = TRUE),
                         by = .(dep, cyc)]
 
 
@@ -69,7 +82,7 @@ d_all$greco <- factor(d_all$greco, labels = c("Grand ouest", "Centre nord",
 d_all$pvv <- with(d_all, PV / V)
 
 # save this
-saveRDS(d_all, "LIF/Croissance/data/d_allobj.rds")
+write.csv(d_all, "LIF/Croissance/ser_trend/data/d_all.csv", row.names = FALSE)
 
 ## compute climatic conditions in the ser
 # set some vars
@@ -176,7 +189,7 @@ meteo_ser %>%
 d2$pc1.1 <- poly(d2$pc1, 2)[,1]
 d2$pc1.2 <- poly(d2$pc1, 2)[,2]
 
-write.csv(d2, "LIF/Croissance/ser_trend/data/d2.csv", row.names = FALSE)
+write.csv(d2, "LIF/Croissance/ser_trend/data/d_climate.csv", row.names = FALSE)
 
 
 

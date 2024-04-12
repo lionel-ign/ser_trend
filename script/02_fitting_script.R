@@ -1,16 +1,28 @@
-## model fitting script for the analysis of the temporal trend of prodctivity
-## at the ser level
+######################################
+##
+## Companion Rscript to the manuscript:
+## Turning point in forest productivity revealed from 40 years
+## of national forest inventory data
+## Author: Lionel Hertzog
+## contact: lionel.hertzog@ign.fr
+## Date: 12/04/2024
+## Aim: this scripts fits the models used in the manuscript
+##
+######################################
+
+# set working directory where the repository has been cloned
+setwd("LIF/Croissance/ser_trend/")
+
 
 # load libraries
 library(rstan)
 library(brms)
 options(mc.cores = parallel::detectCores())
 library(tidyverse)
-#library(pls)
 
-# load data (created in the 01_create_data.R script)
-d_all <- readRDS("LIF/Croissance/ser_trend/data/d_all.csv")
-d2 <- read.csv("LIF/Croissance/ser_trend/data/d2.csv")
+# load data (check the 01_create_data.R script)
+d_all <- read.csv("data/d_all.csv")
+d_climate <- read.csv("data/d_climate.csv")
 
 
 # some fine tuning of the data to ease model fit
@@ -32,7 +44,7 @@ mm <- brm(pvv ~ mqd_std + year_std + (1 | greco / ser) +
           data = d_all)
 
 # save this
-saveRDS(mm, "LIF/Croissance/ser_trend/model/model_mm.rds")
+saveRDS(mm, "model/model_mm.rds")
 
 # quadratic effect
 mm2 <- brm(pvv ~ mqd_std + year2.1 + year2.2 + (1 | grecorand / ser) +
@@ -40,7 +52,7 @@ mm2 <- brm(pvv ~ mqd_std + year2.1 + year2.2 + (1 | grecorand / ser) +
           data = d_all)
 
 # save this
-saveRDS(mm2, "LIF/Croissance/ser_trend/model/model_mm2.rds")
+saveRDS(mm2, "model/model_mm2.rds")
 
 # cubic effects
 mm3 <- brm(pvv ~ mqd_std + year3.1 + year3.2 + year3.3 + (1 | grecorand / ser) +
@@ -49,7 +61,7 @@ mm3 <- brm(pvv ~ mqd_std + year3.1 + year3.2 + year3.3 + (1 | grecorand / ser) +
            data = d_all)
 
 # save this
-saveRDS(mm3, "LIF/Croissance/ser_trend/model/model_mm3.rds")
+saveRDS(mm3, "model/model_mm3.rds")
 
 # compare between models
 c_loo <- loo(mm, mm2, mm3)
@@ -64,29 +76,29 @@ m_d <- brm(pvv ~ mqd_std + pc1.1 + pc1.2 + dethsus +
              (0 + dethsps | grecorand / ser) +
              (0 + pc1.1:dethsus | grecorand / ser) +
              (0 + pc1.1:dethsps | grecorand / ser),
-           data = d2)
+           data = d_climate)
 
 # save this
-saveRDS(m_d, "LIF/Croissance/ser_trend/model/model_md.rds")
+saveRDS(m_d, "model/model_md.rds")
 
 # fit the reduced models
 m_1 <- brm(pvv ~ mqd_std + pc1.1 + 
              (1 | grecorand / ser) +
              (0 + pc1.1 | grecorand / ser),
-           data = d2)
+           data = d_climate)
 
 m_2 <- brm(pvv ~ mqd_std + dethsps +
              dethsus +
              (1 | grecorand / ser) +
              (0 + dethsps | grecorand / ser) + 
              (0 + dethsus | grecorand / ser),
-           data = d2)
+           data = d_climate)
 
 m_3 <- brm(pvv ~ mqd_std + pc1.1 + pc1.2 +
              (1 | grecorand / ser) +
              (0 + pc1.1 | grecorand / ser) +
              (0 + pc1.2 | grecorand / ser),
-           data = d2)
+           data = d_climate)
 
 m_4 <- brm(pvv ~ mqd_std + dethsps +
              dethsus + pc1.1 +
@@ -94,4 +106,8 @@ m_4 <- brm(pvv ~ mqd_std + dethsps +
              (0 + pc1.1 | grecorand / ser) +
              (0 + dethsps | grecorand / ser) + 
              (0 + dethsus | grecorand / ser),
-           data = d2)
+           data = d_climate)
+
+# save the reduced climatic models
+m_clim <- list(m_1, m_2, m_3, m_4)
+saveRDS(m_clim, "model/clim_models.rds")

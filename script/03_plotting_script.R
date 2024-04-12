@@ -1,19 +1,32 @@
-## plotting script for the analysis of the temporal trends in productivity
-## at the ser level
+######################################
+##
+## Companion Rscript to the manuscript:
+## Turning point in forest productivity revealed from 40 years
+## of national forest inventory data
+## Author: Lionel Hertzog
+## contact: lionel.hertzog@ign.fr
+## Date: 12/04/2024
+## Aim: this scripts creates the plots shown in the manuscript
+##
+######################################
 
+## set working directory where the repository has been cloned
+setwd("LIF/Croissance/ser_trend/")
+
+## load libraries
 library(brms)
 library(tidyverse)
 library(sf)
 library(patchwork)
 
 ## load data
-d_all <- readRDS("LIF/Croissance/ser_trend/data/d_allobj.rds")
-d2 <- read.csv("LIF/Croissance/ser_trend/data/d2.csv")
+d_all <- readRDS("data/d_allobj.rds")
+d_climate <- read.csv("data/d_climate.csv")
 
 ## load model (output from script 02_fitting_script.R)
-mm2 <- readRDS("LIF/Croissance/ser_trend/model/model_mm2.rds")
-m_d <- readRDS("LIF/Croissance/ser_trend/model/model_md.rds")
-m_clim <- readRDS("LIF/Croissance/ser_trend/model/clim_models.rds")
+mm2 <- readRDS("model/model_mm2.rds")
+m_d <- readRDS("model/model_md.rds")
+m_clim <- readRDS("model/clim_models.rds")
 
 ## load ser shape
 ser_sf <- st_read("LIF/IFN_stuff/data/geodata/ser_27572.gpkg")
@@ -177,7 +190,7 @@ gf <- ggpubr::as_ggplot(gpleg) + gpred[[2]] + gpred[[3]] + gpred[[4]] + gpred[[1
   gmc + gpred[[5]] +  gpred[[6]] +  gpred[[8]] +
   gpred[[9]] + gme + gpred[[11]] + plot_layout(design = grr)
 
-ggsave("LIF/Croissance/ser_trend/figures/fig1.png", gf)
+ggsave("figures/fig1.png", gf)
 
 ### Figure 2
 ## map of the quadratic trend coefficient
@@ -195,7 +208,7 @@ gg_osf <- ggplot() +
   geom_sf(data=ssf, aes(fill=year)) +
   viridis::scale_fill_viridis(direction=-1)
 
-ggsave("LIF/Croissance/ser_trend/figures/fig2.png", gg_osf)
+ggsave("figures/fig2.png", gg_osf)
 
 
 ### Figure 3
@@ -274,7 +287,7 @@ get_corrs <- function(models, mm2, newdata, yy_ser, group="greco"){
   return(list(out1, out2))
 }
 
-newdata <- d2
+newdata <- d_climate
 newdata$mqd_std <- 0
 m_clim[[5]] <- m_d
 
@@ -295,7 +308,7 @@ g_c2 <- ggplot(cc2, aes(x=label, y=cor_m,  color=type)) +
        y = "Correlation coefficient between trend and climatic model") +
   guides(color="none")
 
-ggsave("LIF/Croissance/ser_trend/figures/fig3.png", g_c2)
+ggsave("figures/fig3.png", g_c2)
 
 
 ### Figure 4
@@ -337,7 +350,7 @@ ge <- ggplot(bbd, aes(x = X1, y = m, ymin=lci, ymax=uci)) +
   labs(x = "",
        y = "Estimate (90% CrI)")
 
-ggsave("LIF/Croissance/ser_trend/figures/fig4.png", ge)
+ggsave("figures/fig4.png", ge)
 
 
 ##### Figures in SI #####
@@ -364,7 +377,7 @@ res1 <- ggplot(res_pred, aes(x=pred_ess, xmin=pred_lci, xmax=pred_uci,
   labs(x = "Fitted values (95% CrI)",
        y = "Reiduals (95% CrI)")
 
-ggsave("LIF/Croissance/ser_trend/figures/res1_mm2.png", res1)
+ggsave("figures/res1_mm2.png", res1)
 
 ### Figure S6
 ### residual plot 2, res ~ x
@@ -399,7 +412,7 @@ res2.4 <- pp_check(mm2, ndraws = 100) +
 
 resa <- ggpubr::ggarrange(res2.1, res2.2, res2.3, res2.4, nrow = 2, ncol = 2,
                           labels = "AUTO")
-ggsave("LIF/Croissance/ser_trend/figures/res2_mm2.png", resa)
+ggsave("figures/res2_mm2.png", resa)
 
 ### Figure S7
 ## compute where the ser ended up at the end of the period
@@ -425,7 +438,7 @@ gg_t <- ggplot(tpp, aes(x=forcats::fct_reorder(ser, Estimate, min),
   labs(x = "",
        y = "Predicted difference between prediction at the end and at the beginning")
 
-ggsave("LIF/Croissance/ser_trend/figures/diff_end_beg.png", gg_t)
+ggsave("figures/diff_end_beg.png", gg_t)
 
 # new version as a map
 ## indicate sig level
@@ -441,14 +454,14 @@ gs <- ggplot(ss) +
   geom_sf(aes(fill=a)) +
   scale_fill_gradient2(name = "Changes in\nabsolute growth\nrate (%)")
 
-ggsave("LIF/Croissance/ser_trend/figures/ser_changes.png", gs, width = 8, height = 8)
+ggsave("figures/ser_changes.png", gs, width = 8, height = 8)
 
 
 ### Figure S8
 ## average normal temperature per SER against predicted trend form
 ## load the climate normal data (all parameters)
 ppp <- do.call(rbind,
-               lapply(list.files(path = "LIF/Croissance/ser_trend/data/",
+               lapply(list.files(path = "data/",
                                  pattern = "serref", full.names = TRUE),
                       read.csv))
 ppp <- subset(ppp, ser %in% pp_quad_df$ser)
@@ -461,19 +474,46 @@ ppp$coll <- rep(ifelse(pp_quad_df$prob >= 0.9, "quad. trend",
 ppp %>%
   pivot_wider(names_from = type,
               values_from = value) -> ppw
+## separate lowland from mountain
+ppw$moutain <- ifelse(ppw$greco%in%c("D", "E", "G", "H", "I", "K"), "mountain", "lowland")
+
+
+# first plot with tmoy
+hl <- data.frame(moutain = "lowland",
+                 tmoy = 11.85)
+g1 <- ggplot(ppw, aes(x=coll, y=tmoy/10)) + 
+  geom_jitter(width = 0.1)+
+  stat_summary(fun.data = "mean_cl_boot", color = "red") +
+  geom_hline(data=hl, aes(yintercept=tmoy)) +
+  facet_wrap(vars(moutain), scales="free") +
+  labs(x = "", y = "Mean temperature (°C)")
+
+# then with deth
+hl <- data.frame(moutain = "mountain",
+                 deth = 25)
+g2 <- ggplot(ppw, aes(x=coll, y=deth/10)) + 
+  geom_jitter(width = 0.1)+
+  stat_summary(fun.data = "mean_cl_boot", color = "red") +
+  geom_hline(data=hl, aes(yintercept=deth)) +
+  facet_wrap(vars(moutain), scales="free") +
+  labs(x = "Trend shape", y = "Mean water deficit (mm)")
+
+
+ga <- g1 / g2
+ggsave("figures/ser_trendshape.png", ga, width=8, height=8)
 
 gt <- ggplot(ppw, aes(x=coll, y=tmoy/10)) +
   geom_jitter(width=0.1) +
   geom_hline(yintercept = c(7.7, 12)) +
   labs(x="Trend shape",
        y="Average temperature (°C)")
-ggsave("LIF/Croissance/ser_trend/figures/trend_temp_ser.png", gt)
+ggsave("figures/trend_temp_ser.png", gt)
 
 
 ### Figure S9
 ## correlation between temporal trend and climate implied temporal trend
 # plot the temporal changes implied by the model
-nn <- d2
+nn <- d_climate
 nn$mqd_std <- 0
 nn <- cbind(nn, fitted(m_d, newdata=nn, probs=c(0.1, 0.9)))
 
@@ -501,4 +541,14 @@ gg_tc <- ggplot(dd, aes(x=cm, xmin=cl,xmax=ch,
   labs(x = "Prediction climate model",
        y = "Prediction trend model")
 
-ggsave("LIF/Croissance/ser_trend/figures/climate_trend_ref_pied.png", gg_tc)
+ggsave("figures/climate_trend_ref_pied.png", gg_tc)
+
+# compute altitude per ser
+conn <- inventR::connect_db()
+g3e <- tbl(conn, dbplyr::in_schema("inv_exp_nm", "g3ecologie"))
+e2p <- tbl(conn, dbplyr::in_schema("inv_exp_nm", "e2point"))
+g3e %>%
+  inner_join(e2p, by = "npp") %>%
+  group_by(ser_86) %>%
+  summarise(alti = mean(alti, na.rm=TRUE)) %>%
+  collect() -> ser_a
