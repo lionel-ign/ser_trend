@@ -11,9 +11,9 @@
 ######################################
 
 # set working directory where the repository has been cloned
-setwd("LIF/Croissance/ser_trend/")
+setwd("~/LIF/Croissance/ser_trend/")
 
-
+set.seed(20241124)
 # load libraries
 library(rstan)
 library(brms)
@@ -21,21 +21,22 @@ options(mc.cores = parallel::detectCores())
 library(tidyverse)
 
 # load data (check the 01_create_data.R script)
-d_all <- read.csv("data/d_all.csv")
-d_climate <- read.csv("data/d_climate.csv")
+d_all <- read.csv("data/dat_dendro.csv")
+clim <- read.csv("data/dat_clim.csv")
+clim5 <- read.csv("data/dat_clim5.csv")
+d2 <- inner_join(d_all, clim5, by = c("ser", "year" = "win"))
 
 
 # some fine tuning of the data to ease model fit
-d_all$pvv <- with(d_all, (PV / V) * 100)
 d_all$mqd_std <- scale(d_all$mqd)
+d_all$v_std <- scale(d_all$V)
 d_all$year_std <- scale(d_all$year)
 d_all$year2.1 <- poly(d_all$year, 2)[,1]
 d_all$year2.2 <- poly(d_all$year, 2)[,2]
 d_all$year3.1 <- poly(d_all$year, 3)[,1]
 d_all$year3.2 <- poly(d_all$year, 3)[,2]
 d_all$year3.3 <- poly(d_all$year, 3)[,3]
-d_all$grecorand <- factor(d_all$greco,
-                          labels = LETTERS[1:11])
+d_all$grecorand <- factor(substr(d_all$ser, 1, 1))
 
 
 # a linear model of year effect
@@ -67,47 +68,21 @@ saveRDS(mm3, "model/model_mm3.rds")
 c_loo <- loo(mm, mm2, mm3)
 
 
-# climatic model with first PC axis on difference to 30-year reference
-m_d <- brm(pvv ~ mqd_std + pc1.1 + pc1.2 + dethsus + 
-             dethsps + pc1.1:dethsus + pc1.1:dethsps +
-              (1 | grecorand / ser) +
-             (0 + pc1.1 | grecorand / ser) + (0 + pc1.2 | grecorand / ser) +
-             (0 + dethsus | grecorand / ser) + 
-             (0 + dethsps | grecorand / ser) +
-             (0 + pc1.1:dethsus | grecorand / ser) +
-             (0 + pc1.1:dethsps | grecorand / ser),
-           data = d_climate)
+## Climatic model with tmoy,  tmoy² and deth
+pp <- poly(d2$tmoy, 2)
+d2$tmoy.1 <- pp[,1] / sd(pp[,1])
+d2$tmoy.2 <- pp[,2] / sd(pp[,2])
+d2$deths <- scale(d2$deth)[,1]
+d2$mqd_std <- scale(d2$mqd)[,1]
+d2$grecorand <- factor(substr(d2$ser, 1, 1))
 
-# save this
-saveRDS(m_d, "model/model_md.rds")
-
-# fit the reduced models
-m_1 <- brm(pvv ~ mqd_std + pc1.1 + 
+m_c <- brm(pvv ~ mqd_std + tmoy.1 + tmoy.2 + 
+             deths + 
              (1 | grecorand / ser) +
-             (0 + pc1.1 | grecorand / ser),
-           data = d_climate)
+             (0 + tmoy.1 | grecorand / ser) +
+             (0 + tmoy.2 | grecorand /ser) +
+             (0 + deths | grecorand / ser),
+           data = d2)
 
-m_2 <- brm(pvv ~ mqd_std + dethsps +
-             dethsus +
-             (1 | grecorand / ser) +
-             (0 + dethsps | grecorand / ser) + 
-             (0 + dethsus | grecorand / ser),
-           data = d_climate)
+saveRDS(m_c, "model/m_climate.rds")
 
-m_3 <- brm(pvv ~ mqd_std + pc1.1 + pc1.2 +
-             (1 | grecorand / ser) +
-             (0 + pc1.1 | grecorand / ser) +
-             (0 + pc1.2 | grecorand / ser),
-           data = d_climate)
-
-m_4 <- brm(pvv ~ mqd_std + dethsps +
-             dethsus + pc1.1 +
-             (1 | grecorand / ser) +
-             (0 + pc1.1 | grecorand / ser) +
-             (0 + dethsps | grecorand / ser) + 
-             (0 + dethsus | grecorand / ser),
-           data = d_climate)
-
-# save the reduced climatic models
-m_clim <- list(m_1, m_2, m_3, m_4)
-saveRDS(m_clim, "model/clim_models.rds")

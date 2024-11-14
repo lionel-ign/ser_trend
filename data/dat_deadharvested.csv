@@ -1,0 +1,397 @@
+"greco","year","name","value"
+"Grand ouest",2015,"alive",0.0361597980855737
+"Grand ouest",2015,"alive + dead",0.0359481645959073
+"Grand ouest",2015,"alive + dead +
+harvested",0.0373139470646631
+"Grand ouest",2016,"alive",0.0344423087588186
+"Grand ouest",2016,"alive + dead",0.0356789546062541
+"Grand ouest",2016,"alive + dead +
+harvested",0.0370408802877869
+"Grand ouest",2017,"alive",0.0334566616166233
+"Grand ouest",2017,"alive + dead",0.0345257699324551
+"Grand ouest",2017,"alive + dead +
+harvested",0.0350381506998229
+"Grand ouest",2018,"alive",0.0314055159334204
+"Grand ouest",2018,"alive + dead",0.032375765358753
+"Grand ouest",2018,"alive + dead +
+harvested",0.0333724402055365
+"Grand ouest",2019,"alive",0.0351822699710719
+"Grand ouest",2019,"alive + dead",0.0362528400529953
+"Grand ouest",2019,"alive + dead +
+harvested",0.0369258040101258
+"Grand ouest",2020,"alive",0.0319911265661637
+"Grand ouest",2020,"alive + dead",0.0327419453297523
+"Grand ouest",2020,"alive + dead +
+harvested",0.0335862578177266
+"Grand ouest",2021,"alive",0.035151372576423
+"Grand ouest",2021,"alive + dead",0.0349636738391411
+"Grand ouest",2021,"alive + dead +
+harvested",0.0355603474335989
+"Grand ouest",2022,"alive",0.0342988679779881
+"Grand ouest",2022,"alive + dead",0.0348138188022843
+"Grand ouest",2022,"alive + dead +
+harvested",0.0349830668452186
+"Grand ouest",2023,"alive",0.0322087520696955
+"Grand ouest",2023,"alive + dead",0.0319750042545181
+"Grand ouest",2023,"alive + dead +
+harvested",0.0314753181483068
+"Centre nord",2015,"alive",0.0316890129680072
+"Centre nord",2015,"alive + dead",0.0322062689260138
+"Centre nord",2015,"alive + dead +
+harvested",0.032215672797904
+"Centre nord",2016,"alive",0.0313046676380558
+"Centre nord",2016,"alive + dead",0.0316347251075023
+"Centre nord",2016,"alive + dead +
+harvested",0.0325557119440125
+"Centre nord",2017,"alive",0.0307219874215653
+"Centre nord",2017,"alive + dead",0.0309736690820121
+"Centre nord",2017,"alive + dead +
+harvested",0.0314522611172449
+"Centre nord",2018,"alive",0.0298024256489022
+"Centre nord",2018,"alive + dead",0.030091442340506
+"Centre nord",2018,"alive + dead +
+harvested",0.0309525705542394
+"Centre nord",2019,"alive",0.0286271359277121
+"Centre nord",2019,"alive + dead",0.0294446040419304
+"Centre nord",2019,"alive + dead +
+harvested",0.030279374851474
+"Centre nord",2020,"alive",0.0266705370604669
+"Centre nord",2020,"alive + dead",0.0277799325019748
+"Centre nord",2020,"alive + dead +
+harvested",0.0279632948752594
+"Centre nord",2021,"alive",0.0274321176426065
+"Centre nord",2021,"alive + dead",0.0281640346345332
+"Centre nord",2021,"alive + dead +
+harvested",0.0284594571564332
+"Centre nord",2022,"alive",0.028068343231374
+"Centre nord",2022,"alive + dead",0.0286801173392239
+"Centre nord",2022,"alive + dead +
+harvested",0.0290913300016013
+"Centre nord",2023,"alive",0.0284383838795283
+"Centre nord",2023,"alive + dead",0.0289402372261278
+"Centre nord",2023,"alive + dead +
+harvested",0.0289723716615169
+"Grand est",2015,"alive",0.029386026699072
+"Grand est",2015,"alive + dead",0.0298862555807646
+"Grand est",2015,"alive + dead +
+harvested",0.030646041918769
+"Grand est",2016,"alive",0.0282260619402399
+"Grand est",2016,"alive + dead",0.0284774070717087
+"Grand est",2016,"alive + dead +
+harvested",0.0292834414093829
+"Grand est",2017,"alive",0.0282433068969684
+"Grand est",2017,"alive + dead",0.0289028668765954
+"Grand est",2017,"alive + dead +
+harvested",0.0297071008609932
+"Grand est",2018,"alive",0.0275877806763837
+"Grand est",2018,"alive + dead",0.0280122045939276
+"Grand est",2018,"alive + dead +
+harvested",0.0289888192903524
+"Grand est",2019,"alive",0.0275981671589614
+"Grand est",2019,"alive + dead",0.0285365550569794
+"Grand est",2019,"alive + dead +
+harvested",0.0289815406104706
+"Grand est",2020,"alive",0.0279337289967053
+"Grand est",2020,"alive + dead",0.0287496240466757
+"Grand est",2020,"alive + dead +
+harvested",0.0286416515116984
+"Grand est",2021,"alive",0.0259762888165279
+"Grand est",2021,"alive + dead",0.0267274823971497
+"Grand est",2021,"alive + dead +
+harvested",0.0270054691946788
+"Grand est",2022,"alive",0.0267936360836439
+"Grand est",2022,"alive + dead",0.0269340345651536
+"Grand est",2022,"alive + dead +
+harvested",0.0279672099209512
+"Grand est",2023,"alive",0.0244200781370905
+"Grand est",2023,"alive + dead",0.0250617386191292
+"Grand est",2023,"alive + dead +
+harvested",0.0256696584690337
+"Vosges",2015,"alive",0.031606761309304
+"Vosges",2015,"alive + dead",0.0318249698560402
+"Vosges",2015,"alive + dead +
+harvested",0.0318723692785377
+"Vosges",2016,"alive",0.0318244588186261
+"Vosges",2016,"alive + dead",0.0322818003317072
+"Vosges",2016,"alive + dead +
+harvested",0.0322086907340399
+"Vosges",2017,"alive",0.0311375587271203
+"Vosges",2017,"alive + dead",0.031505432774448
+"Vosges",2017,"alive + dead +
+harvested",0.0315848765560761
+"Vosges",2018,"alive",0.027500359742525
+"Vosges",2018,"alive + dead",0.0277108850915247
+"Vosges",2018,"alive + dead +
+harvested",0.0278250229741763
+"Vosges",2019,"alive",0.0304986579452383
+"Vosges",2019,"alive + dead",0.0304435393288693
+"Vosges",2019,"alive + dead +
+harvested",0.0302877246748314
+"Vosges",2020,"alive",0.0292261237554289
+"Vosges",2020,"alive + dead",0.0298848067364533
+"Vosges",2020,"alive + dead +
+harvested",0.0295563440843764
+"Vosges",2021,"alive",0.0270722244199432
+"Vosges",2021,"alive + dead",0.0272471156595281
+"Vosges",2021,"alive + dead +
+harvested",0.0273503217281264
+"Vosges",2022,"alive",0.0266963323558822
+"Vosges",2022,"alive + dead",0.0268653195355907
+"Vosges",2022,"alive + dead +
+harvested",0.0267814487874404
+"Vosges",2023,"alive",0.025999523116108
+"Vosges",2023,"alive + dead",0.0261626802588086
+"Vosges",2023,"alive + dead +
+harvested",0.0256456110377392
+"Jura",2015,"alive",0.0335403677003541
+"Jura",2015,"alive + dead",0.0333315388982012
+"Jura",2015,"alive + dead +
+harvested",0.0322357832681534
+"Jura",2016,"alive",0.0291150789198739
+"Jura",2016,"alive + dead",0.0291484021520624
+"Jura",2016,"alive + dead +
+harvested",0.0292199628655042
+"Jura",2017,"alive",0.0289482346055885
+"Jura",2017,"alive + dead",0.028506841829273
+"Jura",2017,"alive + dead +
+harvested",0.0282104550728913
+"Jura",2018,"alive",0.0274268810292801
+"Jura",2018,"alive + dead",0.0277348717048143
+"Jura",2018,"alive + dead +
+harvested",0.0277565307250595
+"Jura",2019,"alive",0.0278711769607257
+"Jura",2019,"alive + dead",0.0280024303323289
+"Jura",2019,"alive + dead +
+harvested",0.0284845779183494
+"Jura",2020,"alive",0.0258066214687625
+"Jura",2020,"alive + dead",0.0259753265829989
+"Jura",2020,"alive + dead +
+harvested",0.0262804484248739
+"Jura",2021,"alive",0.0262200423134023
+"Jura",2021,"alive + dead",0.0263587741309698
+"Jura",2021,"alive + dead +
+harvested",0.0258465368807729
+"Jura",2022,"alive",0.0244984701577742
+"Jura",2022,"alive + dead",0.0247321202838901
+"Jura",2022,"alive + dead +
+harvested",0.0253471059454455
+"Jura",2023,"alive",0.0263877261102608
+"Jura",2023,"alive + dead",0.0259448313133033
+"Jura",2023,"alive + dead +
+harvested",0.0259365304965141
+"Sud ouest",2015,"alive",0.0417115890392399
+"Sud ouest",2015,"alive + dead",0.0419960047689698
+"Sud ouest",2015,"alive + dead +
+harvested",0.0435254806546002
+"Sud ouest",2016,"alive",0.039326741832781
+"Sud ouest",2016,"alive + dead",0.0397522004158585
+"Sud ouest",2016,"alive + dead +
+harvested",0.0409525044828221
+"Sud ouest",2017,"alive",0.0409979306193845
+"Sud ouest",2017,"alive + dead",0.0410140282455153
+"Sud ouest",2017,"alive + dead +
+harvested",0.0414787919966848
+"Sud ouest",2018,"alive",0.0399839364301835
+"Sud ouest",2018,"alive + dead",0.0397878333514082
+"Sud ouest",2018,"alive + dead +
+harvested",0.0408938149937844
+"Sud ouest",2019,"alive",0.0427509601425741
+"Sud ouest",2019,"alive + dead",0.0428376298776337
+"Sud ouest",2019,"alive + dead +
+harvested",0.0424576181730431
+"Sud ouest",2020,"alive",0.0400884178989248
+"Sud ouest",2020,"alive + dead",0.0401514399608888
+"Sud ouest",2020,"alive + dead +
+harvested",0.042345808257003
+"Sud ouest",2021,"alive",0.0433922615566201
+"Sud ouest",2021,"alive + dead",0.0428891219949789
+"Sud ouest",2021,"alive + dead +
+harvested",0.0439962600187315
+"Sud ouest",2022,"alive",0.0458167708833714
+"Sud ouest",2022,"alive + dead",0.0453550186946243
+"Sud ouest",2022,"alive + dead +
+harvested",0.0469083056032464
+"Sud ouest",2023,"alive",0.0441841843039235
+"Sud ouest",2023,"alive + dead",0.0437287358331966
+"Sud ouest",2023,"alive + dead +
+harvested",0.0440245802819494
+"Massif central",2015,"alive",0.0325039149595559
+"Massif central",2015,"alive + dead",0.0323663752263968
+"Massif central",2015,"alive + dead +
+harvested",0.033176898594626
+"Massif central",2016,"alive",0.0326491383560218
+"Massif central",2016,"alive + dead",0.0323834402556632
+"Massif central",2016,"alive + dead +
+harvested",0.0327744888396688
+"Massif central",2017,"alive",0.0316819961528131
+"Massif central",2017,"alive + dead",0.031702793515242
+"Massif central",2017,"alive + dead +
+harvested",0.0328324235536581
+"Massif central",2018,"alive",0.0321276742744165
+"Massif central",2018,"alive + dead",0.0320719900515904
+"Massif central",2018,"alive + dead +
+harvested",0.0327894103204948
+"Massif central",2019,"alive",0.0316704062163898
+"Massif central",2019,"alive + dead",0.0318572398881765
+"Massif central",2019,"alive + dead +
+harvested",0.0321070321329119
+"Massif central",2020,"alive",0.0299202465618618
+"Massif central",2020,"alive + dead",0.0300190550924879
+"Massif central",2020,"alive + dead +
+harvested",0.0303906406644114
+"Massif central",2021,"alive",0.0292768679970545
+"Massif central",2021,"alive + dead",0.0294386762027898
+"Massif central",2021,"alive + dead +
+harvested",0.0299566283724784
+"Massif central",2022,"alive",0.0289772845108399
+"Massif central",2022,"alive + dead",0.0287396080361151
+"Massif central",2022,"alive + dead +
+harvested",0.0290023839069893
+"Massif central",2023,"alive",0.0289102401692262
+"Massif central",2023,"alive + dead",0.0286603400589233
+"Massif central",2023,"alive + dead +
+harvested",0.0293531356216048
+"Alpes",2015,"alive",0.0229080260935425
+"Alpes",2015,"alive + dead",0.022747904273604
+"Alpes",2015,"alive + dead +
+harvested",0.0222360026180437
+"Alpes",2016,"alive",0.0256931291235724
+"Alpes",2016,"alive + dead",0.0254180969143025
+"Alpes",2016,"alive + dead +
+harvested",0.0245879624150522
+"Alpes",2017,"alive",0.0221670297369459
+"Alpes",2017,"alive + dead",0.0220684030418689
+"Alpes",2017,"alive + dead +
+harvested",0.0223071106956659
+"Alpes",2018,"alive",0.0215223248364786
+"Alpes",2018,"alive + dead",0.021335234656998
+"Alpes",2018,"alive + dead +
+harvested",0.0213326455765075
+"Alpes",2019,"alive",0.0240991074909945
+"Alpes",2019,"alive + dead",0.023857143050465
+"Alpes",2019,"alive + dead +
+harvested",0.0237257838111741
+"Alpes",2020,"alive",0.0223411874168624
+"Alpes",2020,"alive + dead",0.0221683473564604
+"Alpes",2020,"alive + dead +
+harvested",0.0220833982731151
+"Alpes",2021,"alive",0.0218432593057725
+"Alpes",2021,"alive + dead",0.0220542597318127
+"Alpes",2021,"alive + dead +
+harvested",0.0218367351803709
+"Alpes",2022,"alive",0.0197304137673099
+"Alpes",2022,"alive + dead",0.0195562942423819
+"Alpes",2022,"alive + dead +
+harvested",0.0192976457175937
+"Alpes",2023,"alive",0.0214182263576057
+"Alpes",2023,"alive + dead",0.0210961487035502
+"Alpes",2023,"alive + dead +
+harvested",0.0215338685147791
+"Pyrénées",2015,"alive",0.0228908266327219
+"Pyrénées",2015,"alive + dead",0.0232521550148214
+"Pyrénées",2015,"alive + dead +
+harvested",0.0240326184708967
+"Pyrénées",2016,"alive",0.0256632058035265
+"Pyrénées",2016,"alive + dead",0.0257835355013697
+"Pyrénées",2016,"alive + dead +
+harvested",0.0250608992561782
+"Pyrénées",2017,"alive",0.0239797372886325
+"Pyrénées",2017,"alive + dead",0.024551925006368
+"Pyrénées",2017,"alive + dead +
+harvested",0.0254349656639247
+"Pyrénées",2018,"alive",0.0267631059821965
+"Pyrénées",2018,"alive + dead",0.0265376412968258
+"Pyrénées",2018,"alive + dead +
+harvested",0.0260711315124019
+"Pyrénées",2019,"alive",0.0252937608066658
+"Pyrénées",2019,"alive + dead",0.0256726305352224
+"Pyrénées",2019,"alive + dead +
+harvested",0.0259641346862227
+"Pyrénées",2020,"alive",0.0239061822317489
+"Pyrénées",2020,"alive + dead",0.0241836272390169
+"Pyrénées",2020,"alive + dead +
+harvested",0.0241567303236527
+"Pyrénées",2021,"alive",0.0266990728902262
+"Pyrénées",2021,"alive + dead",0.0265753294290519
+"Pyrénées",2021,"alive + dead +
+harvested",0.0265102573716654
+"Pyrénées",2022,"alive",0.0224286203306305
+"Pyrénées",2022,"alive + dead",0.0226526191795531
+"Pyrénées",2022,"alive + dead +
+harvested",0.0235335121965294
+"Pyrénées",2023,"alive",0.023067539221258
+"Pyrénées",2023,"alive + dead",0.0229411821201052
+"Pyrénées",2023,"alive + dead +
+harvested",0.0232280276081946
+"Méditerranée",2015,"alive",0.0312368537333023
+"Méditerranée",2015,"alive + dead",0.0313053377230516
+"Méditerranée",2015,"alive + dead +
+harvested",0.0330598407902812
+"Méditerranée",2016,"alive",0.0284034038367087
+"Méditerranée",2016,"alive + dead",0.0277507854585467
+"Méditerranée",2016,"alive + dead +
+harvested",0.0276732587798909
+"Méditerranée",2017,"alive",0.0270176232485847
+"Méditerranée",2017,"alive + dead",0.0274983596226548
+"Méditerranée",2017,"alive + dead +
+harvested",0.0274681524865455
+"Méditerranée",2018,"alive",0.0279635850815119
+"Méditerranée",2018,"alive + dead",0.0288724782970501
+"Méditerranée",2018,"alive + dead +
+harvested",0.0280550817863762
+"Méditerranée",2019,"alive",0.0283701888877813
+"Méditerranée",2019,"alive + dead",0.0284767663573354
+"Méditerranée",2019,"alive + dead +
+harvested",0.0296582257695165
+"Méditerranée",2020,"alive",0.0282204926493573
+"Méditerranée",2020,"alive + dead",0.0293780173292916
+"Méditerranée",2020,"alive + dead +
+harvested",0.0288881555303471
+"Méditerranée",2021,"alive",0.0257218195065145
+"Méditerranée",2021,"alive + dead",0.0255777885399375
+"Méditerranée",2021,"alive + dead +
+harvested",0.0263928463061782
+"Méditerranée",2022,"alive",0.0245962742134143
+"Méditerranée",2022,"alive + dead",0.024971557443301
+"Méditerranée",2022,"alive + dead +
+harvested",0.0254749790945495
+"Méditerranée",2023,"alive",0.0240916151330553
+"Méditerranée",2023,"alive + dead",0.0244021648739156
+"Méditerranée",2023,"alive + dead +
+harvested",0.0238971509957152
+"Corse",2015,"alive",0.0215615646588771
+"Corse",2015,"alive + dead",0.0223416972028585
+"Corse",2015,"alive + dead +
+harvested",0.0230333183879396
+"Corse",2016,"alive",0.022274017345517
+"Corse",2016,"alive + dead",0.0217248484369325
+"Corse",2016,"alive + dead +
+harvested",0.0206957115150102
+"Corse",2017,"alive",0.0185706668141193
+"Corse",2017,"alive + dead",0.0199572907272797
+"Corse",2017,"alive + dead +
+harvested",0.0208024435785628
+"Corse",2018,"alive",0.0197640974097908
+"Corse",2018,"alive + dead",0.0196913885409786
+"Corse",2018,"alive + dead +
+harvested",0.0197105197032589
+"Corse",2019,"alive",0.0227193820289834
+"Corse",2019,"alive + dead",0.0231875431720696
+"Corse",2019,"alive + dead +
+harvested",0.022489140570002
+"Corse",2020,"alive",0.0222872444725949
+"Corse",2020,"alive + dead",0.021145892064958
+"Corse",2020,"alive + dead +
+harvested",0.0223368011500122
+"Corse",2021,"alive",0.0190862478804458
+"Corse",2021,"alive + dead",0.0202079326506987
+"Corse",2021,"alive + dead +
+harvested",0.0203528643239122
+"Corse",2022,"alive",0.0205231305302989
+"Corse",2022,"alive + dead",0.020635946316501
+"Corse",2022,"alive + dead +
+harvested",0.0205932563586835
+"Corse",2023,"alive",0.0255194761760236
+"Corse",2023,"alive + dead",0.0249549002627826
+"Corse",2023,"alive + dead +
+harvested",0.0231161286015201
