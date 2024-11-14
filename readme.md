@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/773863581.svg)](https://zenodo.org/doi/10.5281/zenodo.10836876)
 
-This companion repository allow to reproduce the results shown in the manuscript (under review) and available has a preprint in [link to arXiv to come].
+This companion repository allow to reproduce the results shown in the manuscript (under review) and available has a [preprint](https://www.biorxiv.org/content/10.1101/2024.04.12.589202v1.abstract).
 
 ## Structure
 
