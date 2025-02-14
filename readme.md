@@ -1,8 +1,8 @@
-# Companion repository to the manuscript: "Turning point in forest productivity"
+# Companion repository to the manuscript: "Turning point in the productivity of western European forests associated with a climate change footprint"
 
 [![DOI](https://zenodo.org/badge/773863581.svg)](https://zenodo.org/doi/10.5281/zenodo.10836876)
 
-This companion repository allow to reproduce the results shown in the manuscript (under review) and available has a [preprint](https://www.biorxiv.org/content/10.1101/2024.04.12.589202v1.abstract).
+This companion repository allow to reproduce the results shown in the manuscript (soon to be published in STOTEN) and available has a [preprint](https://www.biorxiv.org/content/10.1101/2024.04.12.589202v1.abstract).
 
 ## Structure
 

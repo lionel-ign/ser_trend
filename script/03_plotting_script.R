@@ -1,8 +1,8 @@
 ######################################
 ##
 ## Companion Rscript to the manuscript:
-## Turning point in forest productivity revealed from 40 years
-## of national forest inventory data
+## Turning point in the productivity of western European forests
+## associated with a climate change footprint
 ## Author: Lionel Hertzog
 ## contact: lionel.hertzog@ign.fr
 ## Date: 12/04/2024
@@ -21,8 +21,16 @@ library(patchwork)
 
 ## load data
 d_all <- read.csv("data/dat_dendro.csv")
+d_all$grecorand <- factor(substr(d_all$ser, 1, 1))
+d_all$mqd_std <- scale(d_all$mqd)
+d_all$year2.1 <- poly(d_all$year, 2)[,1]
+d_all$year2.2 <- poly(d_all$year, 2)[,2]
 clim5 <- read.csv("data/dat_clim5.csv")
 d_climate <- inner_join(d_all, clim5, by = c("ser", "year" = "win"))
+pp <- poly(d_climate$tmoy, 2)
+d_climate$tmoy.1 <- pp[,1] / sd(pp[,1])
+d_climate$tmoy.2 <- pp[,2] / sd(pp[,2])
+d_climate$deths <- scale(d_climate$deth)[,1]
 ddd <- read.csv("data/dat_deadharvested.csv")
 
 ## load model (output from script 02_fitting_script.R)
@@ -31,7 +39,7 @@ m_c <- readRDS("model/m_climate.rds")
 
 
 ## load ser shape
-ser_sf <- st_read("~/LIF/IFN_stuff/data/geodata/ser_27572.gpkg")
+ser_sf <- st_read("data/ser_27572.gpkg")
 
 ##### Extract fitted model coefficient per SER ######
 
@@ -97,8 +105,6 @@ yy <- data.frame(year = y_seq,
                  year2.1 = ppo_pred[,1],
                  year2.2 = ppo_pred[,2],
                  mqd_std = 0)
-
-#yy$mqd_std <- 0
 yy_ser <- yy[rep(1:nrow(yy), each = length(unique(d_all$ser))),]
 yy_ser$ser <- rep(unique(d_all$ser), times = nrow(yy))
 yy_ser$grecorand <- substr(yy_ser$ser, 1, 1)
@@ -195,7 +201,8 @@ gf <- ggpubr::as_ggplot(gpleg) + gpred[[2]] + gpred[[3]] + gpred[[1]] +
   gmc + gpred[[5]] +  gpred[[6]] +  gpred[[8]] +
   gpred[[9]] + gme + gpred[[11]] + plot_layout(design = grr)
 
-ggsave("figures/fig1.png", gf, width=8, height=8)
+ggsave("figures/figure_1.tiff", gf, width=190, height=190,
+       units = "mm", dpi = "print")
 
 ### Figure 2
 
@@ -222,9 +229,10 @@ ddf$name <- factor(ddf$name, levels = c("alive only", "alive + dead",
 
 
 gt <- ggplot(subset(ddf, name != "alive"), aes(x=year, y=value*100, color=name)) +
-  geom_point(alpha=0.5) +
+  geom_point(alpha=0.5, size = 0.5) +
   facet_wrap(vars(greco), scales="free") +
-  stat_smooth(se = FALSE, formula = y ~ poly(x, 2), method = "lm") +
+  stat_smooth(se = FALSE, formula = y ~ poly(x, 2),
+              method = "lm",linewidth = 0.5) +
   labs(x = "Inventory year",
        y = "Rate of productivity (%)") +
   scale_color_discrete(name = "Trees considered:") +
@@ -245,16 +253,18 @@ gl <- ggplot(tt, aes(x=fct_reorder(ser, estimate, min),
                      ymax = estimate+1.96*std.error)) +
   geom_hline(yintercept = 0, linetype="dashed", color="red", linewidth=1.25) +
   geom_linerange() +
-  geom_point() +
+  geom_point(size = 0.5) +
   coord_flip() +
   labs(x = "Forest region",
        y = "Trend in stocks of living trees") +
-  theme(axis.text.y = element_text(size = 5))
+  scale_x_discrete(guide = guide_axis(n.dodge = 2)) +
+  theme(axis.text.y = element_text(size = 6))
 
-ggsave("figures/vtrend.png", gt, width = 6, height = 9)
+#ggsave("figures/vtrend.png", gt, width = 6, height = 9)
 
 ga <- gl / gt
-ggsave("figures/fig2.png", ga, width = 12, height = 12)
+ggsave("figures/figure_2.tiff", ga, width = 190, height = 190,
+       dpi = "print", units = "mm")
 
 
 ### Figure 3 cor from temp and clim model
@@ -262,7 +272,7 @@ n1 <- arrange(d_all, ser, year)
 n1$mqd_std <- 0
 tt <- fitted(mm2, newdata = n1, summary=FALSE)
 
-nn <- arrange(d2, ser, year)
+nn <- arrange(d_climate, ser, year)
 nn$mqd_std <- 0
 nn$grecorand <- substr(nn$ser, 1, 1)
 
@@ -292,19 +302,24 @@ g3 <- ggplot() +
           color = "grey50") +
   scale_fill_continuous(type="viridis", direction = -1,
                         name = "Correlation\ncoefficient") +
-  theme_void()
+  theme_void() +
+  theme(text = element_text(size = 5),
+        legend.position = "bottom", legend.direction = "horizontal")
 
 gd <- ggplot(dc, aes(x=cm)) +
   geom_density() +
   theme_classic() +
   labs(x = "Correlation coefficient",
        y = "Density") +
-  theme(text = element_text(size = 10))
+  scale_x_continuous(breaks = c(0.25, 0.75)) +
+  theme(axis.text = element_text(size = 4),
+        axis.title = element_text(size=5))
 
-ga <- g3 +inset_element(gd, right = 1, top = 1, left = 0.75,
-                        bottom = 0.75, align_to = "full")
+ga <- g3 +inset_element(gd, right = 1, top = 1, left = 0.77,
+                        bottom = 0.77, align_to = "panel", on_top = FALSE)
 
-ggsave("figures/fig3.png", ga, width=8, height=8)
+ggsave("figures/figure_3.tiff", ga, width=90, height=90,
+       dpi = "print", units = "mm")
 
 
 ### Figure 4
@@ -314,6 +329,13 @@ bbd <- plyr::adply(bb$grecorand, c(2, 3), function(x) data.frame(m = mean(x),
                                                                  lci = quantile(x, probs = 0.05),
                                                                  uci = quantile(x, probs = 0.95)))
 bbd <- subset(bbd, X2 %in% c("tmoy.1", "tmoy.2","deths"))
+pg <- data.frame(greco = c("H", "E", "D", "G", "I", "C", "B", "A", "K", "F", "J"),
+                 tmoy = c(59.62235, 86.70970,  92.77541, 100.19547, 102.52861,
+                          102.58528, 108.67038, 115.78451, 128.35887, 129.15654,
+                          137.92258))
+bbd <- inner_join(bbd, pg, by = c("X1"="greco"))
+
+
 bbd$X1 <- factor(bbd$X1, labels = c("Grand ouest", "Centre nord",
                                     "Grand est", "Vosges", "Jura",
                                     "Sud ouest", "Massif central",
@@ -330,18 +352,19 @@ ffs$X2 <- factor(ffs$X2, labels = c("Water deficit\nanomalies (growing season)",
                                     "Temperature anomalies\nlinear",
                                     "Temperature anomalies\nquadratic"))
 
-ge <- ggplot(bbd, aes(x = X1, y = m, ymin=lci, ymax=uci)) +
+ge <- ggplot(bbd, aes(x = fct_reorder(X1, tmoy), y = m, ymin=lci, ymax=uci)) +
   geom_linerange() +
   geom_point() +
-  geom_hline(data=ffs, aes(yintercept = m), linetype = "dashed", color = "red") +
+  geom_hline(data=ffs,
+             aes(yintercept = m), linetype = "dashed", color = "red") +
   geom_hline(yintercept = 0, linetype = "dashed") +
   facet_wrap(vars(X2), scales = "free", ncol = 2, nrow = 3) +
   coord_flip() +
   labs(x = "",
        y = "Estimate (90% CrI)")
 
-ggsave("figures/fig4.png", ge)
-
+ggsave("figures/figure_4.tiff", ge, width = 140, height = 140,
+       units = "mm", dpi = "print")
 
 ##### Figures in SI #####
 
@@ -375,7 +398,7 @@ ggsave("LIF/Croissance/figures/figS1.png", g_v)
 g_pv <- ggplot(d_all, aes(x=year, y=PV)) +
   geom_jitter() +
   geom_smooth() +
-  geom_line(data=da, color="red", linetype = "dashed", size = 1.25)+
+  geom_line(data=da, color="red", linetype = "dashed", linewidth = 1.25)+
   facet_wrap(~greco,scales = "free") +
   labs(x = "Year",
        y = "Volume productivity (m^3 / ha / an)")
@@ -608,10 +631,17 @@ ga <- g1 / g2
 ggsave("figures/figS11.png", ga, width=8, height=8)
 
 
+# explore the age structure of the data
+conn <- inventR::connect_db()
+g3ag <- tbl(conn, dbplyr::in_schema("inv_exp_nm", "g3agedom"))
+dd <- collect(g3ag)
+mean(dd$age13)
 
+ga <- ggplot(dd, aes(x=age13)) +
+  geom_density() +
+  scale_x_log10() +
+  labs(x = "Tree age at 1.3m (years)",
+       y = "Density") +
+  annotate("label", x = 2, y= 1.25, label = "Mean: 66\nMode: 40\nQ25: 35, Q75: 88")
 
-
-
-
-
-
+ggsave("~/LIF/Croissance/ser_trend/figures/tree_age.png", ga)

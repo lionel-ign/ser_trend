@@ -1,8 +1,8 @@
 ######################################
 ##
 ## Companion Rscript to the manuscript:
-## Turning point in forest productivity revealed from 40 years
-## of national forest inventory data
+## Turning point in the productivity of western European forests
+## associated with a climate change footprint
 ## Author: Lionel Hertzog
 ## contact: lionel.hertzog@ign.fr
 ## Date: 12/04/2024
@@ -40,7 +40,7 @@ vpv_am <- dep_cyc_anref[base == "dendro",
 # format results
 vpv_am %>%
   inner_join(dep_cyc_anref, by = c("dep", "cyc")) %>% # add year info
-  filter(anref < 2005, as.numeric(nbpoints) > 99) %>% # remove lines from after 2005 and with less than 100 pts
+  filter(anref < 2005, as.numeric(nbpoints) > 99) %>% # remove lines from before 2005 and with less than 100 pts
   mutate(year = case_when(anref < 1985 ~ 1982,
                               anref < 1990 ~ 1987,
                               anref < 1995 ~ 1992,
@@ -86,11 +86,11 @@ write.csv(d_all, "LIF/Croissance/ser_trend/data/dat_dendro.csv", row.names = FAL
 
 ## compute climatic conditions in the ser
 # shapefile of SER
-ser <- vect("LIF/IFN_stuff/data/geodata/ser_27572.gpkg") 
+ser <- vect("~/LIF/IFN_stuff/data/geodata/ser_27572.gpkg") 
 ser_2154 <- project(ser, "epsg:2154")
 
 ## anomalies in mean temperature and water deficit of growing season
-ltemp <- list.files("LIF/Meteo/DIGICLIM/tmoy", pattern = "_13", full.names = TRUE)[1:60]
+ltemp <- list.files("~/LIF/Meteo/DIGICLIM/tmoy", pattern = "_13", full.names = TRUE)[1:60]
 ras <- rast(lapply(ltemp, function(x) rast(x)))
 names(ras) <- 1961:2020
 # compute 30-years reference (1973-2002)

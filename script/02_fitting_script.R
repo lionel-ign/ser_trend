@@ -1,8 +1,8 @@
 ######################################
 ##
 ## Companion Rscript to the manuscript:
-## Turning point in forest productivity revealed from 40 years
-## of national forest inventory data
+## Turning point in the productivity of western European forests
+## associated with a climate change footprint
 ## Author: Lionel Hertzog
 ## contact: lionel.hertzog@ign.fr
 ## Date: 12/04/2024
@@ -22,7 +22,6 @@ library(tidyverse)
 
 # load data (check the 01_create_data.R script)
 d_all <- read.csv("data/dat_dendro.csv")
-clim <- read.csv("data/dat_clim.csv")
 clim5 <- read.csv("data/dat_clim5.csv")
 d2 <- inner_join(d_all, clim5, by = c("ser", "year" = "win"))
 
